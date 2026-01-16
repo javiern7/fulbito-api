@@ -1,0 +1,19 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3307/fulbito?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: fulbito
+    password: fulbito
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate.format_sql: true
+
+app:
+  security:
+    jwtSecret: "DEV_ONLY_CHANGE_ME_ChangeThisInReal"
+    jwtExpirationMinutes: 240
+  version: "1.0.0-SNAPSHOT"

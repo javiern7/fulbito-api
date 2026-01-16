@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: fulbito-api
+  jpa:
+    open-in-view: false
+  flyway:
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

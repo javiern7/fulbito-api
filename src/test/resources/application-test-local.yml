@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3307/fulbito?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: fulbito
+    password: fulbito
+  flyway:
+    enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+app:
+  security:
+    jwtSecret: TEST_SECRET_12345678901234567890123456789012
+    jwtExpirationMinutes: 60

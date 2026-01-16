@@ -1,0 +1,17 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: fulbito-mysql
+    environment:
+      MYSQL_DATABASE: fulbito
+      MYSQL_USER: fulbito
+      MYSQL_PASSWORD: fulbito
+      MYSQL_ROOT_PASSWORD: 123456
+    ports:
+      - "3307:3307"
+    command: ["--default-authentication-plugin=mysql_native_password"]
+    volumes:
+      - fulbito_mysql_data:/var/lib/mysql
+
+volumes:
+  fulbito_mysql_data:
