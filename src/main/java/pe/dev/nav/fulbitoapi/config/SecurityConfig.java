@@ -24,10 +24,22 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthFilter jwtAuthFilter) throws Exception {
 
+        http.cors(cors -> {}); // ✅ IMPORTANTE: habilita CORS en Security
         http.csrf(csrf -> csrf.disable());
         http.sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         http.authorizeHttpRequests(auth -> auth
+                // ✅ preflight
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+                // Swagger / OpenAPI
+                .requestMatchers(
+                        "/swagger-ui.html",
+                        "/swagger-ui/**",
+                        "/v3/api-docs/**",
+                        "/webjars/**"
+                ).permitAll()
+
                 .requestMatchers("/actuator/health", "/api/version").permitAll()
                 .requestMatchers("/api/auth/login").permitAll()
 
@@ -41,6 +53,9 @@ public class SecurityConfig {
         );
 
         http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+        http.exceptionHandling(e -> e
+                .authenticationEntryPoint((req, res, ex) -> res.sendError(401, "Unauthorized"))
+        );
 
         return http.build();
     }
